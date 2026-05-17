@@ -1,0 +1,43 @@
+// SYNTAX TEST "source.sucuri" "Basic Syntax test"
+include inc/link
+// <- keyword.control.import.sucuri
+//      ^ string.unquoted.sucuri
+
+html
+// <- entity.name.tag.sucuri
+    body
+//  ^ entity.name.tag.sucuri
+        h1 Hello {nome}
+//      ^ entity.name.tag.sucuri
+//               ^ punctuation.definition.variable.begin.sucuri
+//                ^ variable.other.sucuri
+//                    ^ punctuation.definition.variable.end.sucuri
+            | Multiline text here
+//          ^ punctuation.separator.pipe.sucuri
+//            ^ string.unquoted.sucuri
+            | Another line
+        a(href='google.com' class='btn') Google
+//            ^ punctuation.separator.key-value.sucuri
+        
+        <if condition != y>
+//       ^^ keyword.control.conditional.sucuri
+        p Condition true
+        <endif>
+//       ^^^^^ keyword.control.conditional.sucuri
+        
+        ul
+            <for item in list>
+//           ^^^ keyword.control.loop.sucuri
+            li Value #item
+//                   ^^^^^ variable.other.sucuri
+            <endfor>
+//           ^^^^^^ keyword.control.loop.sucuri
+
+        
+        +link
+//      ^ keyword.operator.sucuri
+//       ^^^^ entity.name.function.sucuri
+
+        a(href='1', class='2')
+//                ^ invalid.illegal.comma.sucuri
+

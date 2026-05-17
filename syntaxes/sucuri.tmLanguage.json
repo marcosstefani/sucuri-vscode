@@ -1,0 +1,116 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Sucuri",
+    "scopeName": "source.sucuri",
+    "patterns": [
+        {
+            "include": "#include_directive"
+        },
+        {
+            "include": "#control_flow"
+        },
+        {
+            "include": "#component_usage"
+        },
+        {
+            "include": "#piped_text"
+        },
+        {
+            "include": "#data_variable"
+        },
+        {
+            "include": "#tag_line"
+        }
+    ],
+    "repository": {
+        "include_directive": {
+            "match": "^\\s*(include)\\s+(.+)$",
+            "captures": {
+                "1": { "name": "keyword.control.import.sucuri" },
+                "2": { "name": "string.unquoted.sucuri" }
+            }
+        },
+        "control_flow": {
+            "patterns": [
+                {
+                    "match": "<(if)\\s+(.*?)>",
+                    "captures": {
+                        "1": { "name": "keyword.control.conditional.sucuri" },
+                        "2": { "name": "variable.other.sucuri" }
+                    }
+                },
+                {
+                    "match": "<(endif)>",
+                    "captures": {
+                        "1": { "name": "keyword.control.conditional.sucuri" }
+                    }
+                },
+                {
+                    "match": "<(for)\\s+([a-zA-Z_]\\w*)\\s+(in)\\s+([a-zA-Z_]\\w*)>",
+                    "captures": {
+                        "1": { "name": "keyword.control.loop.sucuri" },
+                        "2": { "name": "variable.parameter.sucuri" },
+                        "3": { "name": "keyword.operator.word.sucuri" },
+                        "4": { "name": "variable.other.sucuri" }
+                    }
+                },
+                {
+                    "match": "<(endfor)>",
+                    "captures": {
+                        "1": { "name": "keyword.control.loop.sucuri" }
+                    }
+                }
+            ]
+        },
+        "component_usage": {
+            "match": "^\\s*(\\+)([a-zA-Z0-9_\\-]+)",
+            "captures": {
+                "1": { "name": "keyword.operator.sucuri" },
+                "2": { "name": "entity.name.function.sucuri" }
+            }
+        },
+        "piped_text": {
+            "match": "^\\s*(\\|)\\s*(.*)$",
+            "captures": {
+                "1": { "name": "punctuation.separator.pipe.sucuri" },
+                "2": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}] }
+            }
+        },
+        "data_variable": {
+            "match": "(\\{)(.*?)(\\})",
+            "captures": {
+                "1": { "name": "punctuation.definition.variable.begin.sucuri" },
+                "2": { "name": "variable.other.sucuri" },
+                "3": { "name": "punctuation.definition.variable.end.sucuri" }
+            }
+        },
+        "tag_line": {
+            "match": "^\\s*([a-zA-Z0-9_\\-]+)(?:\\((.*?)\\))?(?:\\s+(.*))?$",
+            "captures": {
+                "1": { "name": "entity.name.tag.sucuri" },
+                "2": { "name": "meta.attribute.sucuri", "patterns": [{"include": "#attributes"}] },
+                "3": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}, {"include": "#loop_variable"}] }
+            }
+        },
+        "attributes": {
+            "patterns": [
+                {
+                    "match": ",",
+                    "name": "invalid.illegal.comma.sucuri"
+                },
+                {
+                    "match": "([a-zA-Z\\-]+)\\s*(=\\s*)('[^']*'|\"[^\"]*\")?",
+                    "captures": {
+                        "1": { "name": "entity.other.attribute-name.sucuri" },
+                        "2": { "name": "punctuation.separator.key-value.sucuri" },
+                        "3": { "name": "string.quoted.sucuri" }
+                    }
+                }
+            ]
+        },
+        "loop_variable": {
+            "match": "(#[a-zA-Z_]\\w*)",
+            "name": "variable.other.sucuri"
+        }
+    }
+}

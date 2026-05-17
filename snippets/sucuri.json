@@ -1,0 +1,41 @@
+{
+    "If Condition": {
+        "prefix": "if",
+        "body": [
+            "<if ${1:condition}>",
+            "\t$0",
+            "<endif>"
+        ],
+        "description": "Adiciona um bloco condicional (if e endif)"
+    },
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "<for ${1:item} in ${2:colecao}>",
+            "\t$0",
+            "<endfor>"
+        ],
+        "description": "Adiciona um laço de repetição (for e endfor)"
+    },
+    "Include Template": {
+        "prefix": "include",
+        "body": [
+            "include ${1:caminho/do/template}"
+        ],
+        "description": "Importa um template externo"
+    },
+    "Inject Template": {
+        "prefix": "inject",
+        "body": [
+            "+${1:nome_do_template}"
+        ],
+        "description": "Injeta um template que foi incluído previamente"
+    },
+    "Pipe Text": {
+        "prefix": "|",
+        "body": [
+            "| ${1:Texto de multiplas linhas}"
+        ],
+        "description": "Inicia um texto de múltiplas linhas"
+    }
+}
