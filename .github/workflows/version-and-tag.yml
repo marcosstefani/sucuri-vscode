@@ -24,6 +24,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Validate release push token
+        env:
+          RELEASE_PUSH_TOKEN: ${{ secrets.RELEASE_PUSH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${RELEASE_PUSH_TOKEN:-}" ]; then
+            echo "Secret RELEASE_PUSH_TOKEN is not configured."
+            exit 1
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
