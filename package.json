@@ -2,7 +2,7 @@
   "name": "sucuri",
   "displayName": "Sucuri",
   "description": "Basic language support for Sucuri template engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "marcosstefani",
   "repository": {
     "type": "git",
