@@ -31,11 +31,64 @@
         ],
         "description": "Injeta um template que foi incluído previamente"
     },
+    "Inject Template with Parameters": {
+        "prefix": "injectp",
+        "body": [
+            "+${1:nome_do_template}(${2:param}=\"${3:value}\")"
+        ],
+        "description": "Injeta um template passando parâmetros inline"
+    },
     "Pipe Text": {
         "prefix": "|",
         "body": [
             "| ${1:Texto de multiplas linhas}"
         ],
         "description": "Inicia um texto de múltiplas linhas"
+    },
+    "Extends Layout": {
+        "prefix": "extends",
+        "body": [
+            "extends ${1:layout}",
+            "",
+            "block ${2:content}",
+            "\t$0"
+        ],
+        "description": "Herda um template pai e define um bloco de conteúdo"
+    },
+    "Block": {
+        "prefix": "block",
+        "body": [
+            "block ${1:nome}",
+            "\t$0"
+        ],
+        "description": "Define um bloco nomeado para herança de template"
+    },
+    "Style Injection": {
+        "prefix": "style",
+        "body": [
+            "style ${1:static/css/style.css}"
+        ],
+        "description": "Injeta um arquivo CSS como <style> no HTML gerado"
+    },
+    "Script Injection": {
+        "prefix": "script",
+        "body": [
+            "script ${1:static/js/app.js}"
+        ],
+        "description": "Injeta um arquivo JS como <script> no HTML gerado"
+    },
+    "List Built-in": {
+        "prefix": "list",
+        "body": [
+            "list(${1:array}${2: opts} class=\"${3:}\")"
+        ],
+        "description": "Renderiza um array como lista <ul>/<li> ou checkboxes"
+    },
+    "Table Built-in": {
+        "prefix": "table",
+        "body": [
+            "table(${1:heads} ${2:rows} ${3:footers} class=\"${4:}\" id=\"${5:}\")"
+        ],
+        "description": "Renderiza arrays como uma tabela HTML completa (thead, tbody, tfoot)"
     }
 }

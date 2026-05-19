@@ -4,10 +4,22 @@
     "scopeName": "source.sucuri",
     "patterns": [
         {
+            "include": "#extends_directive"
+        },
+        {
+            "include": "#block_directive"
+        },
+        {
             "include": "#include_directive"
         },
         {
+            "include": "#asset_directive"
+        },
+        {
             "include": "#control_flow"
+        },
+        {
+            "include": "#css_shorthand"
         },
         {
             "include": "#component_usage"
@@ -23,10 +35,31 @@
         }
     ],
     "repository": {
+        "extends_directive": {
+            "match": "^\\s*(extends)\\s+(.+)$",
+            "captures": {
+                "1": { "name": "keyword.control.import.sucuri" },
+                "2": { "name": "string.unquoted.sucuri" }
+            }
+        },
+        "block_directive": {
+            "match": "^\\s*(block)\\s+([a-zA-Z0-9_\\-]+)",
+            "captures": {
+                "1": { "name": "keyword.control.sucuri" },
+                "2": { "name": "entity.name.section.sucuri" }
+            }
+        },
         "include_directive": {
             "match": "^\\s*(include)\\s+(.+)$",
             "captures": {
                 "1": { "name": "keyword.control.import.sucuri" },
+                "2": { "name": "string.unquoted.sucuri" }
+            }
+        },
+        "asset_directive": {
+            "match": "^\\s*(style|script)\\s+(.+)$",
+            "captures": {
+                "1": { "name": "keyword.other.asset.sucuri" },
                 "2": { "name": "string.unquoted.sucuri" }
             }
         },
@@ -62,11 +95,19 @@
                 }
             ]
         },
-        "component_usage": {
-            "match": "^\\s*(\\+)([a-zA-Z0-9_\\-]+)",
+        "css_shorthand": {
+            "match": "^\\s*([.#][a-zA-Z0-9_\\-#.]+)(?:\\((.*?)\\))?(?:\\s+(.*))?$",
+            "captures": {
+                "1": { "name": "entity.other.attribute-name.class.sucuri" },
+                "2": { "name": "meta.attribute.sucuri", "patterns": [{"include": "#attributes"}] },
+                "3": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}, {"include": "#loop_variable_filtered"}, {"include": "#loop_variable"}] }
+            }
+        },
+        "component_usage": {            "match": "^\\s*(\\+)([a-zA-Z0-9_\\-]+)(?:\\((.*?)\\))?",
             "captures": {
                 "1": { "name": "keyword.operator.sucuri" },
-                "2": { "name": "entity.name.function.sucuri" }
+                "2": { "name": "entity.name.function.sucuri" },
+                "3": { "name": "meta.attribute.sucuri", "patterns": [{"include": "#attributes"}] }
             }
         },
         "piped_text": {
@@ -77,19 +118,28 @@
             }
         },
         "data_variable": {
-            "match": "(\\{)(.*?)(\\})",
+            "match": "(\\{)([^|}]*?)((?:\\s*\\|\\s*[a-zA-Z_]\\w*)+)?(\\})",
             "captures": {
                 "1": { "name": "punctuation.definition.variable.begin.sucuri" },
                 "2": { "name": "variable.other.sucuri" },
-                "3": { "name": "punctuation.definition.variable.end.sucuri" }
+                "3": { "name": "keyword.other.filter.sucuri" },
+                "4": { "name": "punctuation.definition.variable.end.sucuri" }
             }
         },
         "tag_line": {
-            "match": "^\\s*([a-zA-Z0-9_\\-]+)(?:\\((.*?)\\))?(?:\\s+(.*))?$",
+            "match": "^\\s*([a-zA-Z0-9_\\-]+)([.#][a-zA-Z0-9_\\-#.]+)?(?:\\((.*?)\\))?(?:\\s+(.*))?$",
             "captures": {
                 "1": { "name": "entity.name.tag.sucuri" },
-                "2": { "name": "meta.attribute.sucuri", "patterns": [{"include": "#attributes"}] },
-                "3": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}, {"include": "#loop_variable"}] }
+                "2": { "name": "entity.other.attribute-name.class.sucuri" },
+                "3": { "name": "meta.attribute.sucuri", "patterns": [{"include": "#attributes"}] },
+                "4": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}, {"include": "#loop_variable_filtered"}, {"include": "#loop_variable"}] }
+            }
+        },
+        "loop_variable_filtered": {
+            "match": "(#[a-zA-Z_]\\w*(?:\\.[a-zA-Z_]\\w*)*)((?:\\s*\\|\\s*[a-zA-Z_]\\w*)+)",
+            "captures": {
+                "1": { "name": "variable.other.sucuri" },
+                "2": { "name": "keyword.other.filter.sucuri" }
             }
         },
         "attributes": {
@@ -109,7 +159,7 @@
             ]
         },
         "loop_variable": {
-            "match": "(#[a-zA-Z_]\\w*)",
+            "match": "(#[a-zA-Z_]\\w*(?:\\.[a-zA-Z_]\\w*)*)",
             "name": "variable.other.sucuri"
         }
     }

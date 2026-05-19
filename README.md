@@ -12,14 +12,21 @@ Sucuri is a simple and efficient template engine for Python projects, featuring 
 
 This extension provides the following features when editing `.suc` files:
 
-- **Syntax Highlighting**: Accurate coloring for PugJS-inspired syntax, highlighting Entity tags, injected variables (`{variable}`, `#loop_var`), and language-specific markup flow (`<if>`, `<for>`).
-- **Common Error Validation**: Clearly marks invalid commas `,` inside attribute parenthesis (which is illegal according to the language specification).
+- **Syntax Highlighting**: Accurate coloring for PugJS-inspired syntax, highlighting entity tags, CSS shortcuts (`.class`, `#id`), injected variables (`{variable}`, `#loop_var`), filters (`{var | upper | title}`), loop variables with dot notation (`#item.name`), and language-specific markup flow (`<if>`, `<for>`).
+- **Common Error Validation**: Clearly marks invalid commas `,` inside attribute parentheses (which is illegal according to the language specification).
 - **Built-in Snippets**:
     - Type `for` to insert `<for ...>` and `<endfor>`.
     - Type `if` to insert `<if ...>` and `<endif>`.
     - Type `include` to create an import template reference.
     - Type `inject` or `+` to use the imported component.
-- **Formatting and Auto-closing**: Support for automatic closing of brackets, brackets, quotes, and comments `/* */` and `//`.
+    - Type `injectp` to inject a component with inline parameters.
+    - Type `extends` to inherit a parent layout with a `block`.
+    - Type `block` to define a named block region.
+    - Type `style` to inject a CSS file.
+    - Type `script` to inject a JS file.
+    - Type `list` to insert the built-in list/checkbox macro.
+    - Type `table` to insert the built-in table macro.
+- **Formatting and Auto-closing**: Support for automatic closing of brackets, quotes, and comments `/* */` and `//`.
 
 ## Usage
 
