@@ -14,7 +14,7 @@
     "email": "marcos.cantor@gmail.com"
   },
   "license": "BSD-3-Clause",
-  "icon": "icon.png",
+  "icon": "icon_square_light.png",
   "scripts": {
     "test": "vscode-tmgrammar-test \"tests/**/*.suc\"",
     "test:update": "vscode-tmgrammar-test --update \"tests/**/*.suc\""
@@ -38,8 +38,8 @@
         ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "light": "./icon.png",
-          "dark": "./icon.png"
+          "light": "./icon_square_light.png",
+          "dark": "./icon_square_dark.png"
         }
       }
     ],
