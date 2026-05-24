@@ -90,5 +90,13 @@
             "table(${1:heads} ${2:rows} ${3:footers} class=\"${4:}\" id=\"${5:}\")"
         ],
         "description": "Renderiza arrays como uma tabela HTML completa (thead, tbody, tfoot)"
+    },
+    "Watch Block": {
+        "prefix": "watch",
+        "body": [
+            "watch ${1:nome}",
+            "\t$0"
+        ],
+        "description": "Define um bloco reativo que é re-renderizado automaticamente quando os dados mudam"
     }
 }
