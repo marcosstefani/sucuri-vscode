@@ -10,6 +10,9 @@
             "include": "#block_directive"
         },
         {
+            "include": "#watch_directive"
+        },
+        {
             "include": "#include_directive"
         },
         {
@@ -44,6 +47,13 @@
         },
         "block_directive": {
             "match": "^\\s*(block)\\s+([a-zA-Z0-9_\\-]+)",
+            "captures": {
+                "1": { "name": "keyword.control.sucuri" },
+                "2": { "name": "entity.name.section.sucuri" }
+            }
+        },
+        "watch_directive": {
+            "match": "^\\s*(watch)\\s+([a-zA-Z0-9_]+)",
             "captures": {
                 "1": { "name": "keyword.control.sucuri" },
                 "2": { "name": "entity.name.section.sucuri" }
