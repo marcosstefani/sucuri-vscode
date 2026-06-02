@@ -83,13 +83,26 @@
                     }
                 },
                 {
+                    "match": "<(elif)\\s+(.*?)>",
+                    "captures": {
+                        "1": { "name": "keyword.control.conditional.sucuri" },
+                        "2": { "name": "variable.other.sucuri" }
+                    }
+                },
+                {
+                    "match": "<(else)>",
+                    "captures": {
+                        "1": { "name": "keyword.control.conditional.sucuri" }
+                    }
+                },
+                {
                     "match": "<(endif)>",
                     "captures": {
                         "1": { "name": "keyword.control.conditional.sucuri" }
                     }
                 },
                 {
-                    "match": "<(for)\\s+([a-zA-Z_]\\w*)\\s+(in)\\s+([a-zA-Z_]\\w*)>",
+                    "match": "<(for)\\s+([a-zA-Z_]\\w*)\\s+(in)\\s+([a-zA-Z_][a-zA-Z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z0-9_]*)*)>",
                     "captures": {
                         "1": { "name": "keyword.control.loop.sucuri" },
                         "2": { "name": "variable.parameter.sucuri" },
@@ -113,7 +126,7 @@
                 "3": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}, {"include": "#loop_variable_filtered"}, {"include": "#loop_variable"}] }
             }
         },
-        "component_usage": {            "match": "^\\s*(\\+)([a-zA-Z0-9_\\-]+)(?:\\((.*?)\\))?",
+        "component_usage": {            "match": "^\\s*(\\+)([a-zA-Z0-9_\\-/]+)(?:\\((.*?)\\))?",
             "captures": {
                 "1": { "name": "keyword.operator.sucuri" },
                 "2": { "name": "entity.name.function.sucuri" },
@@ -124,7 +137,7 @@
             "match": "^\\s*(\\|)\\s*(.*)$",
             "captures": {
                 "1": { "name": "punctuation.separator.pipe.sucuri" },
-                "2": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}] }
+                "2": { "name": "string.unquoted.sucuri", "patterns": [{"include": "#data_variable"}, {"include": "#loop_variable_filtered"}, {"include": "#loop_variable"}] }
             }
         },
         "data_variable": {
@@ -159,7 +172,7 @@
                     "name": "invalid.illegal.comma.sucuri"
                 },
                 {
-                    "match": "([a-zA-Z\\-]+)\\s*(=\\s*)('[^']*'|\"[^\"]*\")?",
+                    "match": "([a-zA-Z0-9\\-._]+)\\s*(=\\s*)('[^']*'|\"[^\"]*\")?",
                     "captures": {
                         "1": { "name": "entity.other.attribute-name.sucuri" },
                         "2": { "name": "punctuation.separator.key-value.sucuri" },
