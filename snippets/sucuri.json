@@ -8,6 +8,33 @@
         ],
         "description": "Adiciona um bloco condicional (if e endif)"
     },
+    "If-Elif-Else Condition": {
+        "prefix": "ife",
+        "body": [
+            "<if ${1:condition}>",
+            "\t$2",
+            "<elif ${3:other_condition}>",
+            "\t$4",
+            "<else>",
+            "\t$0",
+            "<endif>"
+        ],
+        "description": "Bloco condicional completo com elif e else"
+    },
+    "Elif Clause": {
+        "prefix": "elif",
+        "body": [
+            "<elif ${1:condition}>"
+        ],
+        "description": "Cláusula elif para bloco condicional"
+    },
+    "Else Clause": {
+        "prefix": "else",
+        "body": [
+            "<else>"
+        ],
+        "description": "Cláusula else para bloco condicional"
+    },
     "For Loop": {
         "prefix": "for",
         "body": [
