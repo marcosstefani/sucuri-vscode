@@ -12,21 +12,39 @@ Sucuri is a simple and efficient template engine for Python projects, featuring 
 
 This extension provides the following features when editing `.suc` files:
 
-- **Syntax Highlighting**: Accurate coloring for PugJS-inspired syntax, highlighting entity tags, CSS shortcuts (`.class`, `#id`), injected variables (`{variable}`, `#loop_var`), filters (`{var | upper | title}`), loop variables with dot notation (`#item.name`), and language-specific markup flow (`<if>`, `<for>`).
-- **Common Error Validation**: Clearly marks invalid commas `,` inside attribute parentheses (which is illegal according to the language specification).
-- **Built-in Snippets**:
-    - Type `for` to insert `<for ...>` and `<endfor>`.
-    - Type `if` to insert `<if ...>` and `<endif>`.
-    - Type `include` to create an import template reference.
-    - Type `inject` or `+` to use the imported component.
-    - Type `injectp` to inject a component with inline parameters.
-    - Type `extends` to inherit a parent layout with a `block`.
-    - Type `block` to define a named block region.
-    - Type `style` to inject a CSS file.
-    - Type `script` to inject a JS file.
-    - Type `list` to insert the built-in list/checkbox macro.
-    - Type `table` to insert the built-in table macro.
-- **Formatting and Auto-closing**: Support for automatic closing of brackets, quotes, and comments `/* */` and `//`.
+- **Syntax Highlighting** covering the full Sucuri language:
+    - Tags, CSS shortcuts (`.class`, `#id`, `section#main.active`) and implicit `div` lines.
+    - Attributes inside `()`, including boolean attributes (`checked`) and interpolation inside attribute values (`href="{url}"`, `class="is-#item.status"`).
+    - Interpolated variables (`{variable}`, `{user.name}`) and loop variables (`#item`, `#item.name`).
+    - Filters (`{title | upper}`, `#item.name | title`), with built-ins (`upper`, `lower`, `title`, `safe`) distinguished from custom ones.
+    - Control flow: `<if>`, `<elif>`, `<else>`, `<endif>`, `<for … in …>`, `<endfor>` — conditions are tokenized (operators, numbers, strings, `True`/`False`/`None`, `and`/`or`/`not`/`in`).
+    - Directives: `include`, `extends`, `block`, `watch`, and the asset injectors `css` / `js`.
+    - Macro calls (`+card`) with inline parameters (`+card(title="Warning")`).
+    - Built-in macros `list(...)` and `table(...)`, with their positional arguments highlighted as context variables.
+    - Multi-line text with the pipe (`|`) character and HTML entities (`&amp;`, `&#60;`).
+- **Common Error Validation**:
+    - Commas `,` inside attribute parentheses are marked as invalid (illegal in Sucuri).
+    - `style path.css` / `script path.js` are marked as deprecated — Sucuri uses `css` and `js` for asset injection; `style` and `script` are plain HTML tags.
+- **Editing Support**: off-side folding (indentation based), automatic indentation after blocks and childless tags, bracket matching and auto-closing pairs.
+
+> **Note:** Sucuri has no comment syntax, so `Toggle Comment` is intentionally disabled for `.suc` files.
+
+## Snippets
+
+| Prefix | Description |
+| --- | --- |
+| `if`, `ife`, `elif`, `else` | Conditional blocks |
+| `for` | Loop block (`<for>` / `<endfor>`) |
+| `include` | Import an external template |
+| `inject`, `injectp` | Inject a macro, with or without inline parameters |
+| `extends`, `block` | Template inheritance |
+| `watch` | Reactive block for the live server |
+| `css`, `js` | Inject a CSS/JS file |
+| `list`, `listck`, `table` | Built-in list, checkbox list and table macros |
+| `var`, `filter` | Variable interpolation, with or without a filter |
+| `code` | Literal multi-line code block (`pre` + `code` + `\|`) |
+| `html5` | Basic document skeleton |
+| `\|` | Multi-line text line |
 
 ## Usage
 
