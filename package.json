@@ -20,6 +20,7 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
+    "package": "vsce package",
     "test": "npm run test:grammar && npm run test:unit",
     "test:grammar": "vscode-tmgrammar-test \"tests/**/*.suc\"",
     "test:unit": "npm run compile && node --test \"out/test/**/*.test.js\"",
@@ -85,6 +86,7 @@
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.0",
     "typescript": "^5.4.0",
     "vscode-tmgrammar-test": "^0.1.3"
   }
