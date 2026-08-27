@@ -29,6 +29,22 @@ This extension provides the following features when editing `.suc` files:
 
 > **Note:** Sucuri has no comment syntax, so `Toggle Comment` is intentionally disabled for `.suc` files.
 
+## IntelliSense
+
+Completions are context aware — what you get depends on where the cursor is on the line:
+
+| Where you type | What you get |
+| --- | --- |
+| Start of a line | HTML tags, directives (`include`, `extends`, `block`, `watch`, `css`, `js`), `<if>`/`<for>` blocks, `list()`/`table()` and the macros already included |
+| `a(` | Attributes for that tag (`href`, `target`, `rel`, …) followed by the global ones. Boolean attributes such as `checked` are inserted without a value |
+| `input(type="` | The allowed values for that attribute (`text`, `checkbox`, `submit`, …) |
+| `{` | Loop variables in scope, plus the context variables already used in the file |
+| `{title \| ` or `#item.name \| ` | Built-in filters (`upper`, `lower`, `title`, `safe`) and custom filters used in the file |
+| `#` | Loop variables of the enclosing `<for>` blocks; after `#item.`, the members already used on that variable |
+| `+` | Macros declared with `include` in the current file |
+| `<` | `<if>`, `<elif>`, `<else>`, `<endif>`, `<for>`, `<endfor>` |
+| `include `, `extends `, `css `, `js ` | Workspace files, relative to the current template — the same base directory Sucuri uses to resolve them |
+
 ## Snippets
 
 | Prefix | Description |
@@ -63,6 +79,16 @@ sucuri build source.suc -o rendered_template.html
 Issues or suggestions regarding the base language and/or the extension:
 - Issue Tracker: [https://github.com/marcosstefani/sucuri/issues](https://github.com/marcosstefani/sucuri/issues)
 - Base Repository: [https://github.com/marcosstefani/sucuri](https://github.com/marcosstefani/sucuri)
+
+### Local development
+
+```bash
+npm install
+npm run watch     # incremental TypeScript build
+npm test          # grammar tests + unit tests
+```
+
+Press `F5` to launch a VS Code window with the extension loaded.
 
 ## License
 

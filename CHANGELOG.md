@@ -2,6 +2,22 @@
 
 All notable changes to the "sucuri" extension will be documented in this file.
 
+## [1.2.0] - 2026-08-27
+### Added
+- Context aware IntelliSense for `.suc` files:
+    - HTML tags, directives, control flow blocks and built-in macros at the start of a line.
+    - Tag specific and global attributes inside `()`, with boolean attributes inserted without a value.
+    - Enumerated attribute values inside quotes (`input(type="…")`, `a(target="…")`, `form(method="…")`).
+    - Loop and context variables inside `{…}` and after `#`, including members already used on a loop variable.
+    - Built-in and custom filters after `|`.
+    - Macros declared with `include`, offered after `+`.
+    - File paths for `include`, `extends`, `css` and `js`, resolved relative to the current template.
+- Unit tests for the completion context analysis and the document index.
+
+### Changed
+- The extension now ships a compiled entry point (`out/extension.js`) and is built with TypeScript.
+- CI and release workflows run on Node 22.
+
 ## [1.1.0] - 2026-08-27
 ### Added
 - Highlighting for the `css` and `js` asset directives.
