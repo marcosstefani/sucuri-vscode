@@ -6,7 +6,7 @@
             "\t$0",
             "<endif>"
         ],
-        "description": "Adiciona um bloco condicional (if e endif)"
+        "description": "Conditional block (if / endif)"
     },
     "If-Elif-Else Condition": {
         "prefix": "ife",
@@ -19,58 +19,68 @@
             "\t$0",
             "<endif>"
         ],
-        "description": "Bloco condicional completo com elif e else"
+        "description": "Full conditional block with elif and else"
     },
     "Elif Clause": {
         "prefix": "elif",
         "body": [
             "<elif ${1:condition}>"
         ],
-        "description": "Cláusula elif para bloco condicional"
+        "description": "elif clause of a conditional block"
     },
     "Else Clause": {
         "prefix": "else",
         "body": [
             "<else>"
         ],
-        "description": "Cláusula else para bloco condicional"
+        "description": "else clause of a conditional block"
     },
     "For Loop": {
         "prefix": "for",
         "body": [
-            "<for ${1:item} in ${2:colecao}>",
+            "<for ${1:item} in ${2:collection}>",
             "\t$0",
             "<endfor>"
         ],
-        "description": "Adiciona um laço de repetição (for e endfor)"
+        "description": "Loop block (for / endfor). Access items with #item"
     },
     "Include Template": {
         "prefix": "include",
         "body": [
-            "include ${1:caminho/do/template}"
+            "include ${1:path/to/template}"
         ],
-        "description": "Importa um template externo"
+        "description": "Import an external .suc template as a macro"
     },
     "Inject Template": {
         "prefix": "inject",
         "body": [
-            "+${1:nome_do_template}"
+            "+${1:template_name}"
         ],
-        "description": "Injeta um template que foi incluído previamente"
+        "description": "Inject a previously included macro"
     },
     "Inject Template with Parameters": {
         "prefix": "injectp",
         "body": [
-            "+${1:nome_do_template}(${2:param}=\"${3:value}\")"
+            "+${1:template_name}(${2:param}=\"${3:value}\")"
         ],
-        "description": "Injeta um template passando parâmetros inline"
+        "description": "Inject a macro passing inline parameters"
     },
     "Pipe Text": {
         "prefix": "|",
         "body": [
-            "| ${1:Texto de multiplas linhas}"
+            "| ${1:Multi-line text}"
         ],
-        "description": "Inicia um texto de múltiplas linhas"
+        "description": "Start a multi-line text line"
+    },
+    "Code Block": {
+        "prefix": "code",
+        "body": [
+            "pre",
+            "\tcode",
+            "\t\t| ${1:code line}",
+            "\t\t| $0"
+        ],
+        "description": "Literal multi-line code block (pre + code + pipe lines)"
     },
     "Extends Layout": {
         "prefix": "extends",
@@ -80,50 +90,82 @@
             "block ${2:content}",
             "\t$0"
         ],
-        "description": "Herda um template pai e define um bloco de conteúdo"
+        "description": "Inherit a parent layout and define a content block"
     },
     "Block": {
         "prefix": "block",
         "body": [
-            "block ${1:nome}",
+            "block ${1:name}",
             "\t$0"
         ],
-        "description": "Define um bloco nomeado para herança de template"
+        "description": "Define a named block region for template inheritance"
     },
-    "Style Injection": {
-        "prefix": "style",
+    "CSS Injection": {
+        "prefix": "css",
         "body": [
-            "style ${1:static/css/style.css}"
+            "css ${1:static/css/style.css}"
         ],
-        "description": "Injeta um arquivo CSS como <style> no HTML gerado"
+        "description": "Inject a CSS file as an inline <style> tag"
     },
-    "Script Injection": {
-        "prefix": "script",
+    "JS Injection": {
+        "prefix": "js",
         "body": [
-            "script ${1:static/js/app.js}"
+            "js ${1:static/js/app.js}"
         ],
-        "description": "Injeta um arquivo JS como <script> no HTML gerado"
+        "description": "Inject a JS file as an inline <script> tag"
     },
     "List Built-in": {
         "prefix": "list",
         "body": [
-            "list(${1:array}${2: opts} class=\"${3:}\")"
+            "list(${1:items} class=\"${2:list}\")"
         ],
-        "description": "Renderiza um array como lista <ul>/<li> ou checkboxes"
+        "description": "Render an array as a <ul>/<li> list"
+    },
+    "Checkbox List Built-in": {
+        "prefix": "listck",
+        "body": [
+            "list(${1:items} ${2:checked_items} class=\"${3:survey}\")"
+        ],
+        "description": "Render an array as checkboxes, checking the values of the second array"
     },
     "Table Built-in": {
         "prefix": "table",
         "body": [
-            "table(${1:heads} ${2:rows} ${3:footers} class=\"${4:}\" id=\"${5:}\")"
+            "table(${1:heads} ${2:rows} ${3:footers} class=\"${4:table}\" id=\"${5:table-id}\")"
         ],
-        "description": "Renderiza arrays como uma tabela HTML completa (thead, tbody, tfoot)"
+        "description": "Render arrays as a full HTML table (thead, tbody, tfoot)"
     },
     "Watch Block": {
         "prefix": "watch",
         "body": [
-            "watch ${1:nome}",
+            "watch ${1:state_key}",
             "\t$0"
         ],
-        "description": "Define um bloco reativo que é re-renderizado automaticamente quando os dados mudam"
+        "description": "Reactive block re-rendered by the live server when the state key changes"
+    },
+    "Variable": {
+        "prefix": "var",
+        "body": [
+            "{${1:variable}}"
+        ],
+        "description": "Interpolate a context variable (HTML-escaped)"
+    },
+    "Filtered Variable": {
+        "prefix": "filter",
+        "body": [
+            "{${1:variable} | ${2|upper,lower,title,safe|}}"
+        ],
+        "description": "Interpolate a context variable applying a filter"
+    },
+    "HTML Skeleton": {
+        "prefix": "html5",
+        "body": [
+            "html",
+            "\thead",
+            "\t\ttitle ${1:Page title}",
+            "\tbody",
+            "\t\t$0"
+        ],
+        "description": "Basic HTML document skeleton"
     }
 }

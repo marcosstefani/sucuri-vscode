@@ -1,7 +1,27 @@
-// SYNTAX TEST "source.sucuri" "Basic Syntax test"
+// SYNTAX TEST "source.sucuri" "Sucuri syntax"
+extends layout
+// <- keyword.control.import.sucuri
+//      ^ string.unquoted.sucuri
+
 include inc/link
 // <- keyword.control.import.sucuri
 //      ^ string.unquoted.sucuri
+
+css static/css/app.css
+// <- keyword.other.asset.sucuri
+//  ^ string.unquoted.sucuri
+
+js static/js/app.js
+// <- keyword.other.asset.sucuri
+// ^ string.unquoted.sucuri
+
+block content
+// <- keyword.control.block.sucuri
+//    ^ entity.name.section.sucuri
+
+watch products
+// <- keyword.control.watch.sucuri
+//    ^ entity.name.section.sucuri
 
 html
 // <- entity.name.tag.sucuri
@@ -12,32 +32,103 @@ html
 //               ^ punctuation.definition.variable.begin.sucuri
 //                ^ variable.other.sucuri
 //                    ^ punctuation.definition.variable.end.sucuri
+        h2 {title | upper}
+//                ^ punctuation.separator.filter.sucuri
+//                  ^ support.function.filter.sucuri
+        h3 {body | markdown}
+//               ^ punctuation.separator.filter.sucuri
+//                 ^ entity.name.function.filter.sucuri
             | Multiline text here
 //          ^ punctuation.separator.pipe.sucuri
 //            ^ string.unquoted.sucuri
             | Another line
         a(href='google.com' class='btn') Google
+//      ^ entity.name.tag.sucuri
+//       ^ punctuation.definition.parameters.begin.sucuri
+//        ^ entity.other.attribute-name.sucuri
 //            ^ punctuation.separator.key-value.sucuri
-        
+//              ^ string.quoted.single.sucuri
+//                                     ^ punctuation.definition.parameters.end.sucuri
+//                                       ^ string.unquoted.sucuri
+        input(type="checkbox" checked)
+//                            ^ entity.other.attribute-name.sucuri
+        a(href="{url}") Interpolated
+//                ^ variable.other.sucuri
+        span &amp; entity
+//           ^ constant.character.entity.sucuri
+
+        div.card
+//      ^ entity.name.tag.sucuri
+//         ^ punctuation.definition.entity.sucuri
+//          ^ entity.other.attribute-name.class.sucuri
+        section#main.active
+//             ^ punctuation.definition.entity.sucuri
+//              ^ entity.other.attribute-name.id.sucuri
+        #app.wrapper
+//      ^ punctuation.definition.entity.sucuri
+//       ^ entity.other.attribute-name.id.sucuri
+//           ^ entity.other.attribute-name.class.sucuri
+
         <if condition != y>
 //       ^^ keyword.control.conditional.sucuri
+//           ^ variable.other.sucuri
+//                    ^^ keyword.operator.comparison.sucuri
         p Condition true
+        <elif user.score >= 100>
+//       ^^^^ keyword.control.conditional.sucuri
+//                       ^^ keyword.operator.comparison.sucuri
+//                          ^^^ constant.numeric.sucuri
+        p High score
+        <else>
+//       ^^^^ keyword.control.conditional.sucuri
+        p Fallback
         <endif>
 //       ^^^^^ keyword.control.conditional.sucuri
-        
+
+        <if role == "admin" and active == True>
+//                  ^ string.quoted.double.sucuri
+//                          ^^^ keyword.operator.logical.sucuri
+//                                        ^^^^ constant.language.sucuri
+        p Admin
+        <endif>
+
         ul
             <for item in list>
 //           ^^^ keyword.control.loop.sucuri
+//               ^^^^ variable.parameter.sucuri
+//                    ^^ keyword.operator.word.sucuri
+//                       ^^^^ variable.other.sucuri
             li Value #item
 //                   ^^^^^ variable.other.sucuri
+            li Name #item.name | title
+//                  ^^^^^^^^^^ variable.other.sucuri
+//                             ^ punctuation.separator.filter.sucuri
+//                               ^ support.function.filter.sucuri
             <endfor>
 //           ^^^^^^ keyword.control.loop.sucuri
 
-        
+        list(items class="ul-squares")
+//      ^^^^ support.function.builtin.sucuri
+//           ^^^^^ variable.other.sucuri
+        table(heads rows footers class="table")
+//      ^^^^^ support.function.builtin.sucuri
+//            ^^^^^ variable.other.sucuri
+
         +link
 //      ^ keyword.operator.sucuri
 //       ^^^^ entity.name.function.sucuri
+        +card(title="Warning" type="danger")
+//       ^^^^ entity.name.function.sucuri
+//            ^^^^^ entity.other.attribute-name.sucuri
 
         a(href='1', class='2')
 //                ^ invalid.illegal.comma.sucuri
+        p Unclosed {var
+//                 ^ punctuation.definition.variable.begin.sucuri
+        p(class="x"
+//       ^ punctuation.definition.parameters.begin.sucuri
+        span $ {p.price} — done
+//              ^ variable.other.sucuri
 
+style static/css/legacy.css
+// <- invalid.deprecated.asset.sucuri

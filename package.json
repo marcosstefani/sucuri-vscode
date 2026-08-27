@@ -1,8 +1,8 @@
 {
   "name": "sucuri",
   "displayName": "Sucuri",
-  "description": "Basic language support for Sucuri template engine",
-  "version": "1.0.6",
+  "description": "Language support for the Sucuri template engine",
+  "version": "1.2.0",
   "publisher": "marcosstefani",
   "repository": {
     "type": "git",
@@ -15,16 +15,33 @@
   },
   "license": "BSD-3-Clause",
   "icon": "icon_square_light.png",
+  "main": "./out/extension.js",
   "scripts": {
-    "test": "vscode-tmgrammar-test \"tests/**/*.suc\"",
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run test:grammar && npm run test:unit",
+    "test:grammar": "vscode-tmgrammar-test \"tests/**/*.suc\"",
+    "test:unit": "npm run compile && node --test \"out/test/**/*.test.js\"",
     "test:update": "vscode-tmgrammar-test --update \"tests/**/*.suc\""
   },
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets"
   ],
+  "keywords": [
+    "sucuri",
+    "suc",
+    "template engine",
+    "python",
+    "pug"
+  ],
+  "bugs": {
+    "url": "https://github.com/marcosstefani/sucuri/issues"
+  },
   "contributes": {
     "languages": [
       {
@@ -55,9 +72,20 @@
         "language": "sucuri",
         "path": "./snippets/sucuri.json"
       }
-    ]
+    ],
+    "configurationDefaults": {
+      "[sucuri]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.detectIndentation": false,
+        "editor.autoIndent": "full"
+      }
+    }
   },
   "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0",
     "vscode-tmgrammar-test": "^0.1.3"
   }
 }
